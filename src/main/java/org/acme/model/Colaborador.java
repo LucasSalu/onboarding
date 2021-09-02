@@ -1,30 +1,26 @@
 package org.acme.model;
 
+import lombok.Data;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+@Data
+@Entity
+@Table(name = "colaborador")
 public class Colaborador {
-	
-	private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer idcolaborador;
+
+	@Column(name = "nome", nullable = false)
+	@Size(max = 45)
+	@NotBlank
 	private String nome;
+
+	@Column(name = "matricula", nullable = false)
+	@Size(max = 45)
+	@NotBlank
 	private String matricula;
-	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public String getMatricula() {
-		return matricula;
-	}
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
-	}
-	
-	
 }
 
