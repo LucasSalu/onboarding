@@ -5,6 +5,7 @@ import org.acme.repository.ColaboradorRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @ApplicationScoped
@@ -20,5 +21,12 @@ public class ColaboradorServiceImp implements ColaboradorServiceInterface{
     @Override
     public List<Colaborador> listAll() {
         return colaboradorRepository.listAll();
+    }
+
+    @Transactional
+    @Override
+    public Colaborador saveColaborador(Colaborador colaborador) {
+        colaboradorRepository.persistAndFlush(colaborador);
+        return colaborador;
     }
 }
