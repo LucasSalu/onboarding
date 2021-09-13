@@ -7,8 +7,9 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
-@Path("/hello")
+@Path("/colaboradores")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ExampleResource {
@@ -21,9 +22,9 @@ public class ExampleResource {
     }
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return colaboradorServiceImp.listAll().toString();
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Colaborador> list() {
+        return colaboradorServiceImp.listAll();
     }
 
     @POST
@@ -31,11 +32,4 @@ public class ExampleResource {
     public Colaborador create(Colaborador colaborador){
         return colaboradorServiceImp.saveColaborador(colaborador);
     }
-
-//    public void GenerateNewColaborador(){
-//        Colaborador colaborador = new Colaborador();
-//        colaborador.setNome("Lucas");
-//        colaborador.setIdcolaborador(2);
-//        colaborador.setMatricula("2");
-//    }
 }
