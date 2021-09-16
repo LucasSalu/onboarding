@@ -1,7 +1,8 @@
 package org.acme.service;
 
-import org.acme.model.Colaborador;
 import java.util.List;
+
+import org.acme.model.Colaborador;
 
 public interface ColaboradorServiceInterface {
     /* */
@@ -9,4 +10,9 @@ public interface ColaboradorServiceInterface {
 
     /* */
     Colaborador saveColaborador(Colaborador colaborador);
+    
+    Colaborador atualizar(Integer id, Colaborador colaborador);
+    
+    List<Colaborador> listByName(String nome);
+    
 }

@@ -1,12 +1,13 @@
 package org.acme.service;
 
-import org.acme.model.Colaborador;
-import org.acme.repository.ColaboradorRepository;
+import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import java.util.List;
+
+import org.acme.model.Colaborador;
+import org.acme.repository.ColaboradorRepository;
 
 @ApplicationScoped
 public class ColaboradorServiceImp implements ColaboradorServiceInterface{
@@ -17,6 +18,12 @@ public class ColaboradorServiceImp implements ColaboradorServiceInterface{
     ColaboradorServiceImp(ColaboradorRepository colaboradorRepository){
         this.colaboradorRepository = colaboradorRepository;
     }
+    
+	@Override
+	public List<Colaborador> listByName(String nome) {
+		String searchInput = "%" + nome + "%";
+		return (List<Colaborador>) colaboradorRepository.list("nome like ?1", searchInput); 	
+	}
 
     @Override
     public List<Colaborador> listAll() {
@@ -26,7 +33,16 @@ public class ColaboradorServiceImp implements ColaboradorServiceInterface{
     @Transactional
     @Override
     public Colaborador saveColaborador(Colaborador colaborador) {
-        colaboradorRepository.persistAndFlush(colaborador);
+        colaboradorRepository.persist(colaborador);
         return colaborador;
     }
+
+	@Override
+	public Colaborador atualizar(Integer id, Colaborador colaborador) {
+		String query = String.format("nome = '%s' where idcolaborador = ?1", colaborador.getNome());
+		colaboradorRepository.update(query, colaborador.getIdcolaborador().toString());
+		return colaborador; 
+	}
+
+
 }
